@@ -8,10 +8,12 @@ import config from './config.js'
 
 console.log('imported config:', config);
 
-import philaVueComps from '@cityofphiladelphia/phila-vue-comps';
-console.log('in main, philaVueComps:', philaVueComps);
 import philaVueDatafetch from '@cityofphiladelphia/phila-vue-datafetch';
 console.log('in main, philaVueDatafetch:', philaVueDatafetch);
+import philaVueMapping from '@cityofphiladelphia/phila-vue-mapping';
+console.log('in main, philaVueMapping:', philaVueMapping);
+import philaVueComps from '@cityofphiladelphia/phila-vue-comps';
+console.log('in main, philaVueComps:', philaVueComps);
 // const controllerMixin = philaVueDatafetch.controllerMixin;
 
 const clientConfig = config;

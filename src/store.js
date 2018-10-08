@@ -1,7 +1,11 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import mergeDeep from './util/merge-deep';
-import philaVueComps from '@cityofphiladelphia/phila-vue-comps'
+
+import philaVueDatafetch from '@cityofphiladelphia/phila-vue-datafetch';
+console.log('in store, philaVueDatafetch:', philaVueDatafetch);
+
+import philaVueComps from '@cityofphiladelphia/phila-vue-comps';
 console.log('in store, philaVueComps:', philaVueComps);
 // const pvcStore = philaVueComps.pvcStore
 
