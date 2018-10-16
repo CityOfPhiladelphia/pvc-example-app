@@ -10,7 +10,10 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server"
   },
   "dependencies": {
-    "@cityofphiladelphia/phila-vue-comps": "https://github.com/CityOfPhiladelphia/phila-vue-comps#cca49ea57b57f6c4090b024024d07e29b622f24d",
+    "@cityofphiladelphia/phila-vue-comps": "https://github.com/CityOfPhiladelphia/phila-vue-comps#2ca0f6f5eb18d6cfa1589181b1b82305dc29cfde",
+    "@fortawesome/fontawesome-pro": "^5.4.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.5",
+    "@fortawesome/vue-fontawesome": "^0.1.1",
     "accounting": "^0.4.1",
     "axios": "^0.18.0",
     "moment": "^2.21.0"

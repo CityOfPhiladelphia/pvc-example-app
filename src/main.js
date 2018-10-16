@@ -5,47 +5,44 @@ import configMixin from './util/config-mixin';
 import App from './components/App.vue';
 import mergeDeep from './util/merge-deep';
 import config from './config.js'
-
-console.log('imported config:', config);
-
-import philaVueDatafetch from '@cityofphiladelphia/phila-vue-datafetch';
-console.log('in main, philaVueDatafetch:', philaVueDatafetch);
-import philaVueMapping from '@cityofphiladelphia/phila-vue-mapping';
-console.log('in main, philaVueMapping:', philaVueMapping);
+import '@fortawesome/fontawesome-pro/js/all';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import philaVueComps from '@cityofphiladelphia/phila-vue-comps';
-console.log('in main, philaVueComps:', philaVueComps);
-// const controllerMixin = philaVueDatafetch.controllerMixin;
 
 const clientConfig = config;
-
-// function init(clientConfig) {
 const baseConfigUrl = config.baseConfig;
-// get base config
-axios.get(baseConfigUrl).then(response => {
-  // console.log('in axios, clientConfig:', clientConfig);
-  const data = response.data;
-  const baseConfigFn = eval(data);
-  const { gatekeeperKey } = clientConfig;
-  const baseConfig = baseConfigFn({ gatekeeperKey });
 
-  // deep merge base config and client config
-  const config = mergeDeep(baseConfig, clientConfig);
+function initVue(config) {
   const store = createStore(config);
 
-  // mix in controller
-  // Vue.use(controllerMixin, { config, store });
+  // make config accessible from each component via this.$config
+  Vue.use(configMixin, config);
 
+  Vue.component('font-awesome-icon', FontAwesomeIcon)
   // mount main vue
   const vm = new Vue({
     el: '#vue-app',
     render: h => h(App),
     store
   });
+}
 
-}).catch(err => {
-  console.error('Error loading base config:', err);
-});
+// if there is a base config, get base config
+if (baseConfigUrl) {
+  axios.get(baseConfigUrl).then(response => {
+    const data = response.data;
+    const baseConfigFn = eval(data);
+    const { gatekeeperKey } = clientConfig;
+    const baseConfig = baseConfigFn({ gatekeeperKey });
 
-// }
-//
-// init(config);
+    // deep merge base config and client config
+    const config = mergeDeep(baseConfig, clientConfig);
+
+    initVue(config);
+  }).catch(err => {
+    console.error('Error loading base config:', err);
+  });
+
+} else {
+  initVue(clientConfig);
+}

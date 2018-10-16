@@ -1,240 +1,175 @@
 <template>
   <div id="app-root">
+    <header class="site-header app group">
+      <div class="row expanded">
+        <div class="columns">
+          <a href="//beta.phila.gov" class="logo">
+            <img src="https://standards.phila.gov/img/logo/city-of-philadelphia-yellow-white.png" alt="City of Philadelphia">
+          </a>
+          <div class="app-divide"></div>
+          <div class="page-title-container">
+            <a href="#/">
+              <h1 class="page-title">PVC Example App</h1>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
 
-    <div :class="'pvc-search-control-container ' + this.containerClass"
-         :style="this.containerStyle"
-    >
-      <form @submit.prevent="handleSearchFormSubmit"
-            autocomplete="off"
-            id="search-form"
-            class="pvc-search-control-form"
-      >
-        <input :class="'pvc-search-control-input ' + this.inputClass"
-               id="pvc-search-control-input"
-               :style="this.inputStyle"
-               :placeholder="this.$props.placeholder || 'Search for an address'"
-               :value="this.addressEntered"
-               tabindex="0"
-        />
-        <!-- @keyup="didType" -->
-      </form>
-      <!-- <button :class="'pvc-search-control-button ' + this.buttonClass"
-              v-if="this.addressEntered != '' && this.addressEntered != null"
-              @click="handleFormX"
-      > -->
-      <!-- v-if="this.addressAutocompleteEnabled && this.addressEntered != '' && this.addressEntered != null" -->
-        <!-- <i class="fa fa-times fa-lg"></i>
-      </button> -->
-      <button :class="'pvc-search-control-button ' + this.buttonClass"
-              tabindex="-1"
-              @click="this.handleSearchFormSubmit"
-      >
-        <i class="fa fa-search fa-lg"></i>
-      </button>
-      <slot name="address-candidates-slot" />
+    <div id="components-root">
+
+      <fieldset>
+        <legend class="h4">Favorite Philly cheesesteaks</legend>
+        <input id="pat" type="checkbox" name="cheesesteak" value="pat">
+        <label for="pat">Pat's King of Steaks</label><br>
+        <input id="geno" type="checkbox" name="cheesesteak" value="geno">
+        <label for="geno">Geno's Steaks</label><br>
+        <input id="tony-luke" type="checkbox" name="cheesesteak" value="tony-luke">
+        <label for="tony-luke">Tony Luke's</label><br>
+        <input id="jim" type="checkbox" name="cheesesteak" value="jim">
+        <label for="jim">Jim's Steaks</label>
+      </fieldset>
+
+      <div class="margin-sides-20 component-label">callout:</div>
+      <callout class="margin-20"
+               :slots="callout_01_Slots"
+      />
+
+      <div class="margin-sides-20 component-label">popover-links:</div>
+      <popover-link class="margin-20"
+                    :slots="popoverLink_01_Slots"
+
+      />
+      <popover-link class="margin-20"
+                    :slots="popoverLink_02_Slots"
+
+      />
+
+      <div class="margin-sides-20 component-label">vertical-table:</div>
+      <vertical-table class="margin-20 margin-bottom-60 medium-8"
+                      :slots="verticalTable_01_Slots"
+                      :options="verticalTable_01_Options"
+      />
+
+      <div class="margin-sides-20 component-label">horizontal-table:</div>
+      <horizontal-table class="margin-20 medium-10"
+                      :slots="horizontalTable_01_Slots"
+                      :options="horizontalTable_01_Options"
+      />
     </div>
 
-    <!-- <div class="data-div"
-         v-if="this.geocodeStatus === 'success'"
-    >
-      <div class="data-label-div"><b>Geocode Data</b></div>
-      <div class="data-returned-div">
-        Address: {{ this.geocodeProperties.street_address }}
-      </div>
-      <div class="data-label-div"><b>OPA Data</b></div>
-      <div class="data-returned-div">
-        <div>OPA number: {{ this.$store.state.sources.opa.data.parcel_number }}</div>
-        <div>Owner: {{ this.$store.state.sources.opa.data.owner_1 }}</div>
-      </div>
-      <div class="data-label-div"><b>DOR Data</b></div>
-      <div class="data-returned-div">
-        <div>DOR number: {{ this.geocodeProperties.dor_parcel_id }}</div>
-      </div>
-      <div class="data-label-div"><b>DOR Documents</b></div>
-      <div v-for="doc in this.dorDocuments"
-           class="dor-doc"
-      >
-        <div>Grantees: {{ doc.attributes.GRANTEES }}</div>
-        <div>DocType: {{ doc.attributes.DOCUMENT_TYPE }}</div>
-      </div>
-    </div> -->
+    <popover :html="popover"
+             v-if="popover && popover.length > 0"
+    />
 
   </div>
 </template>
 
 <script>
+  import axios from 'axios';
+
   import philaVueComps from '@cityofphiladelphia/phila-vue-comps';
-  console.log('in App.vue, philaVueComps:', philaVueComps);
+  const Callout = philaVueComps.Callout;
+  const PopoverLink = philaVueComps.PopoverLink;
+  const Popover = philaVueComps.Popover;
+  const VerticalTable = philaVueComps.VerticalTable;
+  const HorizontalTable = philaVueComps.HorizontalTable;
+  const Checkbox = philaVueComps.Checkbox;
 
   export default {
-
-    props: [
-      'widthFromConfig',
-      'placeholder',
-    ],
+    components: {
+      Callout,
+      PopoverLink,
+      Popover,
+      VerticalTable,
+      HorizontalTable,
+      Checkbox,
+    },
     data() {
       const data = {
-        containerStyle: {
-          'width': '305px',
+        callout_01_Slots: {
+          text: 'text callout text',
         },
-        inputStyle: {
-          'width': '250px',
-        }
+        popoverLink_01_Slots: {
+          value: 'popover-link 1',
+          shouldShowValue: true,
+          // transforms: ['currency'],
+          // popoverTransforms: ['currency'],
+          popoverPreText: 'this is the popoverPreText for a popover with shouldShowValue: ',
+          popoverPostText: ' - this is the popoverPostText',
+        },
+        popoverLink_02_Slots: {
+          value: 'popover-link 2',
+          shouldShowValue: false,
+          popoverPreText: 'this is the popoverPreText for popover-link 2 (shouldShowValue is off) - ',
+          popoverPostText: ' - this is the popoverPostText',
+        },
+        verticalTable_01_Slots: {
+          fields: [
+            {
+              label: 'field1',
+              value: 'field1 value',
+            },
+            {
+              label: 'field2',
+              value: 'field2 value',
+            },
+          ]
+        },
+        verticalTable_01_Options: {
+          id: 'verticalTableId',
+          externalLink: {
+            action: function() {
+              return 'external link - ';
+            },
+            name: 'Atlas',
+            href: 'https://atlas.phila.gov'
+          }
+        },
+        horizontalTable_01_Options: {
+          id: 'testHorizTable_01',
+          fields: [
+            {
+              label: 'License Number',
+              value: function(state, item){
+                return item['licensenum'];
+              }
+            },
+            {
+              label: 'License Type',
+              value: function(state, item){
+                return item['licensetype'];
+              }
+            },
+            {
+              label: 'Business Name',
+              value: function(state, item){
+                return item['business_name'];
+              }
+            },
+          ]
+        },
+        horizontalTable_01_Slots: {
+          title: '1234 Market St. Business Licenses',
+          items: []
+        },
       }
       return data;
     },
+    mounted() {
+      const BusinessLicensesUrl = 'https://phl.carto.com/api/v2/sql?q=select+*+from+li_business_licenses+where+street_address+%3D+%271234+MARKET+ST%27'
+      axios.get(BusinessLicensesUrl).then(response => {
+        this.$data.horizontalTable_01_Slots.items = response.data.rows;
+      }).catch(err => {
+        console.error('Error loading base config:', err);
+      });
+    },
     computed: {
-      // geocodeStatus() {
-      //   return this.$store.state.geocode.status;
-      // },
-      // geocodeProperties() {
-      //   return this.$store.state.geocode.data.properties;
-      // },
-      // dorDocuments() {
-      //   const keys = Object.keys(this.$store.state.sources.dorDocuments.targets || {});
-      //   const key = keys[0]
-      //   if (this.$store.state.sources.dorDocuments.targets[key]) {
-      //     return this.$store.state.sources.dorDocuments.targets[key].data;
-      //   }
-      // },
-      addressEntered() {
-        return this.$store.state.addressEntered;
-      },
-      inputWidth() {
-        // if (this.addressAutocompleteEnabled) {
-          if (this.addressEntered === '' || this.addressEntered === null) {
-            return this.$props.widthFromConfig - 55;
-          } else {
-            return this.$props.widthFromConfig - 108;
-          }
-        // } else {
-        //   return this.$props.widthFromConfig - 55;
-        // }
-      },
-      inputClass() {
-        if (this.isMobileOrTablet) {
-          return 'pvc-input-mobile';
-        } else {
-          return 'pvc-input-non-mobile';
-        }
-      },
-      containerClass() {
-        if (this.isMobileOrTablet) {
-          return 'pvc-container-mobile';
-        } else {
-          return 'pvc-container-non-mobile';
-        }
-      },
-      buttonClass() {
-        if (this.isMobileOrTablet) {
-          return 'pvc-button-mobile'
-        } else {
-          return 'pvc-button-non-mobile'
-        }
-      },
-      addressAutocompleteEnabled() {
-        return false;
-        // TODO this is temporarily disabled
-        // if (this.$config.addressInput) {
-        //   if (this.$config.addressInput.autocompleteEnabled === true) {
-        //     return true;
-        //   } else {
-        //     return false;
-        //   }
-        // } else {
-        //   return false;
-        // }
-      },
-      isMobileOrTablet() {
-        return false;
-        // return this.$store.state.isMobileOrTablet;
+      popover() {
+        return this.$store.state.popover;
       },
     },
-    methods: {
-      // didType: _.debounce(function (e) {
-      //     // console.log('debounce is running');
-      //     const { value } = e.target;
-      //     this.$store.commit('setAddressEntered', value);
-      //
-      //     if (this.addressAutocompleteEnabled) {
-      //       // console.log('debounce is running, e:', e, 'this:', this);
-      //       if (e.key === "ArrowDown") {
-      //         document.getElementById('address-candidate-list-0').focus();
-      //         return;
-      //       }
-      //       // const { value } = e.target;
-      //       this.getCandidates(value);
-      //       // this.$store.commit('setAddressEntered', value);
-      //       if (e.key !== "Enter") {
-      //         console.log('AddressInput.vue didType is running, e.key !== "Enter"');
-      //         this.$store.commit('setShouldShowAddressCandidateList', true);
-      //       }
-      //     }
-      //   }, 300
-      // ),
-      getCandidates(address) {
-        // console.log('getCandidates is running, address:', address);
-        axios.get('https://cqvfg1pm72.execute-api.us-east-1.amazonaws.com/dev/first-api-test/', {
-          params: {
-            address,
-          },
-        })
-          .then(this.didGetCandidates)
-          .catch(this.didGetCandidatesError);
-      },
-      didGetCandidates(res) {
-        const { matches } = res.data;
-        // console.log('matches:', matches, 'matches map:', matches.map(x => x.address));
-        const matchesArray = matches.map(x => x.address);
-        this.$store.commit('setCandidates', matchesArray);
-      },
-      didGetCandidatesError(err) {
-        console.log('error getting candidates', err);
-        this.$store.commit('setCandidates', []);
-      },
-      handleFormX() {
-        this.$store.commit('setAddressEntered', '');
-        this.$store.commit('setShouldShowAddressCandidateList', false);
-        this.$store.commit('setCandidates', []);
-      },
-      handleSearchFormSubmit() {
-        let value;
-        if (this.addressAutocompleteEnabled){
-          value = this.$store.state.addressEntered;
-        } else {
-          value = $('#pvc-search-control-input').val();
-        }
-        // console.log('phila-vue-comps AddressInput.vue, handleSearchFormSubmit is running, value:', value);
-        // this.$controller.handleSearchFormSubmit(value);
-        this.$store.commit('setAddressEntered', value);
-      },
-      // handleWindowResize() {
-      //   const addressEntered = this.addressEntered;
-      //   // console.log('AddressInput.vue handleWindowResize is running', $(window).width(), 'addressEntered:', addressEntered);
-      //   if ($(window).width() >= 850) {
-      //     this.containerStyle.width = this.$props.widthFromConfig + 'px';
-      //     if (addressEntered === '' || addressEntered === null) {
-      //       this.inputStyle.width = this.$props.widthFromConfig - 55 + 'px';
-      //     } else {
-      //       this.inputStyle.width = this.$props.widthFromConfig - 108 + 'px';
-      //     }
-      //   } else if ($(window).width() >= 750) {
-      //     this.containerStyle.width = this.$props.widthFromConfig - 100 + 'px';
-      //     if (addressEntered === '' || addressEntered === null) {
-      //       this.inputStyle.width = this.$props.widthFromConfig - 155 + 'px';
-      //     } else {
-      //       this.inputStyle.width = this.$props.widthFromConfig - 208 + 'px';
-      //     }
-      //   } else {
-      //     this.containerStyle.width = '300px';
-      //     if (addressEntered === '' || addressEntered === null) {
-      //       this.inputStyle.width = '245px';
-      //     } else {
-      //       this.inputStyle.width = '192px';
-      //     }
-      //   }
-      // }
-    }
+
   };
 
 </script>
@@ -242,83 +177,32 @@
 <style scoped>
 
 #app-root {
-  height: 500px;
+  height: 100%
 }
 
-.pvc-search-control-form {
-  display: inline-block;
+#components-root {
+  padding: 20px;
+  height: 100%;
+  overflow-y: auto;
 }
 
-/* Container */
-
-.pvc-search-control-container {
-  position: absolute;
-  margin: 20px;
-  display: inline-block;
-  border-radius: 2px;
-  box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
-  width: 305px;
+.component-label {
+  font-size: 20px;
 }
 
-.pvc-container-non-mobile {
-  height: 48px;
+.margin-sides-20 {
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
-.pvc-container-mobile {
-  height: 38px;
+.margin-20 {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
 }
 
-
-/* Input */
-
-.pvc-search-control-input {
-  display: inline-block;
-  border: 0;
-  padding: 15px;
-  font-family: 'Montserrat', 'Tahoma', sans-serif;
-  font-size: 16px;
-  width: 250px;
-}
-
-.pvc-input-non-mobile {
-  height: 48px;
-}
-
-.pvc-input-mobile {
-  height: 38px;
-}
-
-
-/* Button */
-
-.pvc-search-control-button {
-  display: inline-block;
-  color: #fff;
-  background: #2176d2;
-  padding: 0px;
-  width: 50px;
-}
-
-.pvc-button-non-mobile {
-  height: 48px;
-  line-height: 48px;
-}
-
-.pvc-button-mobile {
-  height: 38px;
-  line-height: 38px;
-  padding-top: 1px;
-}
-
-.data-div {
-  margin: 20px;
-  position: absolute;
-  left: 350px;
-  display: inline-block
-}
-
-.dor-doc {
-  margin-bottom: 10px;
+.margin-bottom-60 {
+  margin-bottom: 60px !important;
 }
 
 
