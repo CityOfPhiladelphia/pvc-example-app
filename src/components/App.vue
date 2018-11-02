@@ -18,7 +18,23 @@
 
     <div id="components-root">
 
-      <fieldset>
+      <font-awesome-icon icon="info-circle" class="fa-2x" />
+
+      <div class="margin-sides-20">
+        check out <external-link class="ib" :options="externalLinkOptions"/>
+      </div>
+      <div class="margin-sides-20">
+        <!-- check out <external-link class="ib" :options="{ data: 'atlas.phila.gov', href: 'https://atlas.phila.gov' }"/> -->
+        check out
+        <external-link class="ib"
+                       :options="{
+                          data: 'openmaps.phila.gov',
+                          href: 'https://openmaps.phila.gov'
+                       }"
+        />
+      </div>
+
+      <fieldset class="margin-20">
         <legend class="h4">Favorite Philly cheesesteaks</legend>
         <input id="pat" type="checkbox" name="cheesesteak" value="pat">
         <label for="pat">Pat's King of Steaks</label><br>
@@ -45,10 +61,37 @@
 
       />
 
-      <div class="margin-sides-20 component-label">vertical-table:</div>
+      <div class="margin-sides-20 component-label">vertical-tables:</div>
       <vertical-table class="margin-20 margin-bottom-60 medium-8"
                       :slots="verticalTable_01_Slots"
                       :options="verticalTable_01_Options"
+      />
+
+      <vertical-table
+        class="margin-20 margin-bottom-60 medium-8"
+        :slots="{
+          fields: [
+            {
+              label: 'field1',
+              value: 'field1 value',
+            },
+            {
+              label: 'field2',
+              value: 'field2 value',
+            },
+          ]
+        }"
+        :options="{
+          id: 'verticalTableId',
+          externalLink: {
+            action: function() {
+              return 'external link - ';
+            },
+            // action: 'See more',
+            name: 'Atlas',
+            href: 'https://atlas.phila.gov'
+          }
+        }"
       />
 
       <div class="margin-sides-20 component-label">horizontal-table:</div>
@@ -75,6 +118,7 @@
   const VerticalTable = philaVueComps.VerticalTable;
   const HorizontalTable = philaVueComps.HorizontalTable;
   const Checkbox = philaVueComps.Checkbox;
+  const ExternalLink = philaVueComps.ExternalLink;
 
   export default {
     components: {
@@ -84,17 +128,23 @@
       VerticalTable,
       HorizontalTable,
       Checkbox,
+      ExternalLink,
     },
     data() {
       const data = {
+        externalLinkOptions: {
+          data: 'atlas.phila.gov',
+          href: 'https://atlas.phila.gov'
+        },
+
         callout_01_Slots: {
           text: 'text callout text',
         },
+
+
         popoverLink_01_Slots: {
           value: 'popover-link 1',
           shouldShowValue: true,
-          // transforms: ['currency'],
-          // popoverTransforms: ['currency'],
           popoverPreText: 'this is the popoverPreText for a popover with shouldShowValue: ',
           popoverPostText: ' - this is the popoverPostText',
         },
@@ -104,6 +154,8 @@
           popoverPreText: 'this is the popoverPreText for popover-link 2 (shouldShowValue is off) - ',
           popoverPostText: ' - this is the popoverPostText',
         },
+
+
         verticalTable_01_Slots: {
           fields: [
             {
@@ -122,12 +174,16 @@
             action: function() {
               return 'external link - ';
             },
+            // action: 'See more',
             name: 'Atlas',
             href: 'https://atlas.phila.gov'
           }
         },
+
+
         horizontalTable_01_Options: {
           id: 'testHorizTable_01',
+          limit: 5,
           fields: [
             {
               label: 'License Number',
@@ -147,7 +203,16 @@
                 return item['business_name'];
               }
             },
-          ]
+          ],
+          externalLink: {
+            action: function(count) {
+              return 'See ' + count + ' older permits at L&I Property History';
+            },
+            name: 'L&I Property History',
+            href: function(state) {
+              return 'http://li.phila.gov/';
+            }
+          }
         },
         horizontalTable_01_Slots: {
           title: '1234 Market St. Business Licenses',
@@ -182,7 +247,7 @@
 
 #components-root {
   padding: 20px;
-  height: 100%;
+  height: 90%;
   overflow-y: auto;
 }
 
@@ -203,6 +268,10 @@
 
 .margin-bottom-60 {
   margin-bottom: 60px !important;
+}
+
+.ib {
+  display: inline-block;
 }
 
 
