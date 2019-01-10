@@ -10,7 +10,7 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server"
   },
   "dependencies": {
-    "@cityofphiladelphia/phila-vue-comps": "https://github.com/CityOfPhiladelphia/phila-vue-comps#c2e8a59dd041ea683fb7936968f1c20146a92e96",
+    "@cityofphiladelphia/phila-vue-comps": "https://github.com/CityOfPhiladelphia/phila-vue-comps#6e9d7cd139fe95fd3ceff428b9d9da1951f5b094",
     "accounting": "^0.4.1",
     "axios": "^0.18.0",
     "phila-standards": "^1.0.2",

@@ -116,7 +116,6 @@
   import Popover from '../../node_modules/@cityofphiladelphia/phila-vue-comps/src/components/Popover.vue';
   import VerticalTable from '../../node_modules/@cityofphiladelphia/phila-vue-comps/src/components/VerticalTable.vue';
   import HorizontalTable from '../../node_modules/@cityofphiladelphia/phila-vue-comps/src/components/HorizontalTable.vue';
-  import Checkbox from '../../node_modules/@cityofphiladelphia/phila-vue-comps/src/components/Checkbox.vue';
   import ExternalLink from '../../node_modules/@cityofphiladelphia/phila-vue-comps/src/components/ExternalLink.vue';
 
   export default {
@@ -126,7 +125,6 @@
       Popover,
       VerticalTable,
       HorizontalTable,
-      Checkbox,
       ExternalLink,
     },
     data() {
