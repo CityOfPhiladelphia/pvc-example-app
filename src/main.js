@@ -14,14 +14,19 @@ import createStore from './store';
 import configMixin from './util/config-mixin';
 import App from './components/App.vue';
 import mergeDeep from './util/merge-deep';
-import config from './config.js'
+import config from './config.js';
 
-import '@fortawesome/fontawesome-pro/js/all';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faInfoCircle } from '@fortawesome/pro-solid-svg-icons/faInfoCircle';
+import { faExternalLink } from '@fortawesome/pro-solid-svg-icons/faExternalLink';
+library.add(faInfoCircle, faExternalLink);
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+const date = new Date();
+console.log('date:', date);
+
 import '../node_modules/phila-standards/dist/css/phila-app.min.css';
 import './styles.css';
-
-import philaVueComps from '@cityofphiladelphia/phila-vue-comps';
 
 const clientConfig = config;
 const baseConfigUrl = config.baseConfig;

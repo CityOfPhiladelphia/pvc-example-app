@@ -111,14 +111,13 @@
 <script>
   import axios from 'axios';
 
-  import philaVueComps from '@cityofphiladelphia/phila-vue-comps';
-  const Callout = philaVueComps.Callout;
-  const PopoverLink = philaVueComps.PopoverLink;
-  const Popover = philaVueComps.Popover;
-  const VerticalTable = philaVueComps.VerticalTable;
-  const HorizontalTable = philaVueComps.HorizontalTable;
-  const Checkbox = philaVueComps.Checkbox;
-  const ExternalLink = philaVueComps.ExternalLink;
+  import Callout from '../../node_modules/@cityofphiladelphia/phila-vue-comps/src/components/Callout.vue';
+  import PopoverLink from '../../node_modules/@cityofphiladelphia/phila-vue-comps/src/components/PopoverLink.vue';
+  import Popover from '../../node_modules/@cityofphiladelphia/phila-vue-comps/src/components/Popover.vue';
+  import VerticalTable from '../../node_modules/@cityofphiladelphia/phila-vue-comps/src/components/VerticalTable.vue';
+  import HorizontalTable from '../../node_modules/@cityofphiladelphia/phila-vue-comps/src/components/HorizontalTable.vue';
+  import Checkbox from '../../node_modules/@cityofphiladelphia/phila-vue-comps/src/components/Checkbox.vue';
+  import ExternalLink from '../../node_modules/@cityofphiladelphia/phila-vue-comps/src/components/ExternalLink.vue';
 
   export default {
     components: {
@@ -184,7 +183,45 @@
         horizontalTable_01_Options: {
           id: 'testHorizTable_01',
           limit: 5,
+          filters: [
+            {
+              type: 'time',
+              getValue: function(item) {
+                return item['mostrecentissuedate'];
+              },
+              label: 'From the last',
+              values: [
+                {
+                  label: '30 days',
+                  value: '30',
+                  unit: 'days',
+                  direction: 'subtract',
+                },
+                {
+                  label: '90 days',
+                  value: '90',
+                  unit: 'days',
+                  direction: 'subtract',
+                },
+                {
+                  label: 'year',
+                  value: '1',
+                  unit: 'years',
+                  direction: 'subtract',
+                }
+              ]
+            }
+          ],
           fields: [
+            {
+              label: 'Most Recent Issue Date',
+              value: function(state, item){
+                return item['mostrecentissuedate'];
+              },
+              transforms: [
+                'date'
+              ]
+            },
             {
               label: 'License Number',
               value: function(state, item){
