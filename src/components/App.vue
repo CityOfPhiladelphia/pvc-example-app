@@ -111,12 +111,12 @@
 <script>
   import axios from 'axios';
 
-  import Callout from '../../node_modules/@cityofphiladelphia/phila-vue-comps/src/components/Callout.vue';
-  import PopoverLink from '../../node_modules/@cityofphiladelphia/phila-vue-comps/src/components/PopoverLink.vue';
-  import Popover from '../../node_modules/@cityofphiladelphia/phila-vue-comps/src/components/Popover.vue';
-  import VerticalTable from '../../node_modules/@cityofphiladelphia/phila-vue-comps/src/components/VerticalTable.vue';
-  import HorizontalTable from '../../node_modules/@cityofphiladelphia/phila-vue-comps/src/components/HorizontalTable.vue';
-  import ExternalLink from '../../node_modules/@cityofphiladelphia/phila-vue-comps/src/components/ExternalLink.vue';
+  import Callout from '@philly/vue-comps/src/components/Callout.vue';
+  import PopoverLink from '@philly/vue-comps/src/components/PopoverLink.vue';
+  import Popover from '@philly/vue-comps/src/components/Popover.vue';
+  import VerticalTable from '@philly/vue-comps/src/components/VerticalTable.vue';
+  import HorizontalTable from '@philly/vue-comps/src/components/HorizontalTable.vue';
+  import ExternalLink from '@philly/vue-comps/src/components/ExternalLink.vue';
 
   export default {
     components: {

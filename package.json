@@ -6,32 +6,31 @@
   "author": "andy.rothwell <rothwell.andy@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "cross-env NODE_ENV=production npx webpack",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
   },
   "dependencies": {
-    "@cityofphiladelphia/phila-vue-comps": "https://github.com/CityOfPhiladelphia/phila-vue-comps#6e9d7cd139fe95fd3ceff428b9d9da1951f5b094",
+    "@philly/vue-comps": "https://github.com/CityOfPhiladelphia/phila-vue-comps#02704868f330ed74813000ff89675f6b4f923b05",
     "accounting": "^0.4.1",
     "axios": "^0.18.0",
     "phila-standards": "^1.0.2",
-    "vue": "^2.5.17",
+    "vue": "^2.6.8",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.1.2",
-    "@babel/preset-env": "^7.1.0",
-    "@babel/register": "^7.0.0",
-    "@fortawesome/fontawesome-pro": "^5.5.0",
-    "babel-loader": "^8.0.4",
-    "cross-env": "^5.1.4",
-    "css-loader": "^0.28.11",
-    "file-loader": "^1.1.11",
-    "style-loader": "^0.20.3",
-    "vue-loader": "^15.4.2",
-    "vue-template-compiler": "^2.5.17",
-    "webpack": "^4.25.1",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10",
+    "@vue/cli-plugin-babel": "^3.0.5",
+    "@vue/cli-service": "^3.0.5",
+    "vue-template-compiler": "^2.6.8",
     "webpack-visualizer-plugin": "^0.1.11"
-  }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
 }

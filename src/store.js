@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import mergeDeep from './util/merge-deep';
-import pvcStore from '../node_modules/@cityofphiladelphia/phila-vue-comps/src/store.js';
+import pvcStore from '@philly/vue-comps/src/store.js';
 // import { pvcStore } from '@cityofphiladelphia/phila-vue-comps';
 
 // when you load vuex from a script tag this seems to happen automatically

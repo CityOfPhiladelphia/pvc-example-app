@@ -17,9 +17,9 @@ import mergeDeep from './util/merge-deep';
 import config from './config.js';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faInfoCircle } from '@fortawesome/pro-solid-svg-icons/faInfoCircle';
-import { faExternalLink } from '@fortawesome/pro-solid-svg-icons/faExternalLink';
-library.add(faInfoCircle, faExternalLink);
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons/faInfoCircle';
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons/faExternalLinkAlt';
+library.add(faInfoCircle, faExternalLinkAlt);
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 const date = new Date();
