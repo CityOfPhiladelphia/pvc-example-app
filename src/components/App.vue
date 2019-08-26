@@ -18,6 +18,14 @@
 
     <div id="components-root">
 
+      <badge :options="badgeOptions"
+             :slots="badgeSlots"
+      />
+
+      <badge-custom :options="badgeCustomOptions"
+                    :slots="badgeCustomSlots"
+      />
+
       <font-awesome-icon icon="info-circle" class="fa-2x" />
 
       <div class="margin-sides-20">
@@ -117,6 +125,10 @@
   import VerticalTable from '@philly/vue-comps/src/components/VerticalTable.vue';
   import HorizontalTable from '@philly/vue-comps/src/components/HorizontalTable.vue';
   import ExternalLink from '@philly/vue-comps/src/components/ExternalLink.vue';
+  import Badge from '@philly/vue-comps/src/components/Badge.vue';
+  import BadgeCustom from '@philly/vue-comps/src/components/BadgeCustom.vue';
+  import Division from '@philly/vue-comps/src/components/Division.vue';
+  import Paragraph from '@philly/vue-comps/src/components/Paragraph.vue';
 
   export default {
     components: {
@@ -126,9 +138,38 @@
       VerticalTable,
       HorizontalTable,
       ExternalLink,
+      Badge,
+      BadgeCustom,
+      Division,
+      Paragraph
     },
     data() {
       const data = {
+
+        badgeSlots: {
+          title: 'Base District',
+          titleBackground: '#58c04d',
+          value: 'RSA-5',
+          description: 'residential street association 5'
+        },
+
+        badgeCustomOptions: {
+          components: [
+            {
+              type: 'paragraph',
+              slots: {
+                text: 'test'
+              }
+            }
+          ],
+          titleBackground: '#58c04d'
+        },
+        badgeCustomSlots: {
+          title: 'Base District',
+          // value: 'RSA-5',
+          // description: 'residential street association 5'
+        },
+
         externalLinkOptions: {
           data: 'atlas.phila.gov',
           href: 'https://atlas.phila.gov'

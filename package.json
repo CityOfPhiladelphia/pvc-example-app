@@ -10,7 +10,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "@philly/vue-comps": "^1.0.33",
+    "@philly/vue-comps": "^1.0.36",
     "accounting": "^0.4.1",
     "axios": "^0.19.0",
     "phila-standards": "^1.0.2",
