@@ -12,6 +12,8 @@ function createStore(config) {
   const initialState = {
     candidates: [],
     addressEntered: null,
+    fullScreen: {},
+    fullScreenTopicsEnabled: true,
   };
 
   const mb = {

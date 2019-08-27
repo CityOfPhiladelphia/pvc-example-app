@@ -18,9 +18,7 @@
 
     <div id="components-root">
 
-      <badge :options="badgeOptions"
-             :slots="badgeSlots"
-      />
+      <badge :slots="badgeSlots"/>
 
       <badge-custom :options="badgeCustomOptions"
                     :slots="badgeCustomSlots"
@@ -226,7 +224,7 @@
             {
               type: 'time',
               getValue: function(item) {
-                return item['mostrecentissuedate'];
+                return item['violationdate'];
               },
               label: 'From the last',
               values: [
@@ -253,30 +251,30 @@
           ],
           fields: [
             {
-              label: 'Most Recent Issue Date',
+              label: 'Violation Date',
               value: function(state, item){
-                return item['mostrecentissuedate'];
+                return item['violationdate'];
               },
               transforms: [
                 'date'
               ]
             },
             {
-              label: 'License Number',
+              label: 'Case Number',
               value: function(state, item){
-                return item['licensenum'];
+                return item['casenumber'];
               }
             },
             {
-              label: 'License Type',
+              label: 'Violation Type',
               value: function(state, item){
-                return item['licensetype'];
+                return item['violationtype'];
               }
             },
             {
-              label: 'Business Name',
+              label: 'Owner Name',
               value: function(state, item){
-                return item['business_name'];
+                return item['ownername'];
               }
             },
           ],
@@ -291,15 +289,17 @@
           }
         },
         horizontalTable_01_Slots: {
-          title: '1234 Market St. Business Licenses',
+          title: '1234 Market St. Violations',
           items: []
         },
       }
       return data;
     },
     mounted() {
-      const BusinessLicensesUrl = 'https://phl.carto.com/api/v2/sql?q=select+*+from+li_business_licenses+where+street_address+%3D+%271234+MARKET+ST%27'
+      console.log('App.vue mounted is running, this.$controller:', this.$controller);
+      const BusinessLicensesUrl = 'https://phl.carto.com/api/v2/sql?q=select+*+from+li_violations+where+address+%3D+%271234+MARKET+ST%27'
       axios.get(BusinessLicensesUrl).then(response => {
+        console.log('axios success, response:', response);
         this.$data.horizontalTable_01_Slots.items = response.data.rows;
       }).catch(err => {
         console.error('Error loading base config:', err);

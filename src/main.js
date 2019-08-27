@@ -23,19 +23,25 @@ library.add(faInfoCircle, faExternalLinkAlt);
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 const date = new Date();
-console.log('date:', date);
+console.log('in main.js date:', date);
 
 import '../node_modules/phila-standards/dist/css/phila-app.min.css';
 import './styles.css';
+
+import controllerMixin from 'pvd/src/main.js';
 
 const clientConfig = config;
 const baseConfigUrl = config.baseConfig;
 
 function initVue(config) {
+  console.log('initVue is running');
   const store = createStore(config);
 
   // make config accessible from each component via this.$config
   Vue.use(configMixin, config);
+
+  // mix in controller
+  Vue.use(controllerMixin, { config, store });
 
   Vue.component('font-awesome-icon', FontAwesomeIcon)
   // mount main vue
@@ -48,6 +54,7 @@ function initVue(config) {
 
 // if there is a base config, get base config
 if (baseConfigUrl) {
+  console.log('main.js if is running');
   axios.get(baseConfigUrl).then(response => {
     const data = response.data;
     const baseConfigFn = eval(data);
@@ -63,5 +70,6 @@ if (baseConfigUrl) {
   });
 
 } else {
+  console.log('main.js else is running');
   initVue(clientConfig);
 }
